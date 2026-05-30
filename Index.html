@@ -73,13 +73,65 @@ footer{border-top:1px solid var(--border);padding:36px 48px 28px;display:flex;ju
 @media(max-width:768px){
   nav{padding:18px 20px}nav.sc{padding:14px 20px}
   .nlinks{display:none}.nmob{display:flex}
-  #featured{padding:80px 20px 0}
-  .feat-cap{flex-direction:column;gap:8px}
+
+  /* Featured: full width */
+  #featured{padding:68px 0 0}
+  .feat-img{width:100%!important;margin:0!important;aspect-ratio:4/3}
+  .feat-cap{width:88%!important;margin:0 auto!important;flex-direction:column;gap:5px;padding-bottom:16px}
   .feat-right{text-align:left}
-  #projects{padding:40px 20px 80px}
-  #pgrid{display:flex;flex-direction:column;gap:24px;position:static;height:auto!important}
-  .pc{position:static!important;width:100%!important;left:auto!important;top:auto!important}
-  .pc-inner{height:56vw!important}
+
+  /* Projects grid — Chipperfield mobile pattern */
+  #projects{padding:28px 0 80px}
+  #pgrid{
+    position:static!important;height:auto!important;
+    display:flex;flex-direction:column;gap:0
+  }
+  .pc{
+    position:static!important;left:auto!important;top:auto!important;
+    margin-bottom:36px;display:block
+  }
+
+  /* Pattern: full → phải → trái → giữa → full → phải → trái → giữa... */
+  /* 1: full width, cao landscape */
+  .pc:nth-child(1){width:100%!important}
+  .pc:nth-child(1) .pc-inner{height:56vw!important}
+  .pc:nth-child(1) .pc-cap{padding:10px 20px 0}
+
+  /* 2: lệch phải 75%, cao portrait */
+  .pc:nth-child(2){width:75%!important;align-self:flex-end;margin-right:0}
+  .pc:nth-child(2) .pc-inner{height:72vw!important}
+  .pc:nth-child(2) .pc-cap{padding:10px 20px 0}
+
+  /* 3: lệch trái 70%, cao landscape */
+  .pc:nth-child(3){width:70%!important;align-self:flex-start}
+  .pc:nth-child(3) .pc-inner{height:48vw!important}
+  .pc:nth-child(3) .pc-cap{padding:10px 0 0 20px}
+
+  /* 4: giữa 60%, cao vuông */
+  .pc:nth-child(4){width:60%!important;align-self:center}
+  .pc:nth-child(4) .pc-inner{height:60vw!important}
+  .pc:nth-child(4) .pc-cap{padding:10px 0 0 12px}
+
+  /* 5: full width, cao landscape */
+  .pc:nth-child(5){width:100%!important}
+  .pc:nth-child(5) .pc-inner{height:52vw!important}
+  .pc:nth-child(5) .pc-cap{padding:10px 20px 0}
+
+  /* 6: lệch phải 80%, cao portrait */
+  .pc:nth-child(6){width:80%!important;align-self:flex-end}
+  .pc:nth-child(6) .pc-inner{height:68vw!important}
+  .pc:nth-child(6) .pc-cap{padding:10px 20px 0}
+
+  /* 7: lệch trái 65%, cao landscape */
+  .pc:nth-child(7){width:65%!important;align-self:flex-start}
+  .pc:nth-child(7) .pc-inner{height:44vw!important}
+  .pc:nth-child(7) .pc-cap{padding:10px 0 0 20px}
+
+  /* 8: giữa 72%, cao landscape */
+  .pc:nth-child(8){width:72%!important;align-self:center}
+  .pc:nth-child(8) .pc-inner{height:50vw!important}
+  .pc:nth-child(8) .pc-cap{padding:10px 0 0 12px}
+
   footer{flex-direction:column;gap:24px;padding:28px 20px}
   .foot-right{align-items:flex-start}
 }

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoom — Kiến trúc & Thi công</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#111;--white:#fff;--off:#f8f7f5;
+  --gray:#9a9a9a;--border:#e5e5e3;
+  --serif:'EB Garamond',Georgia,serif;
+  --sans:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--black);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:30px 48px;background:rgba(255,255,255,0.95);backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color .4s,padding .3s}
+nav.sc{border-bottom-color:var(--border);padding:18px 48px}
+.logo{font-family:var(--serif);font-size:1.25rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--black)}
+.nlinks{display:flex;gap:36px;list-style:none}
+.nlinks a{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--gray);transition:color .2s}
+.nlinks a:hover{color:var(--black)}
+.nmob{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.nmob span{display:block;width:20px;height:1px;background:var(--black)}
+.movl{display:none;position:fixed;inset:0;z-index:300;background:var(--white);flex-direction:column;padding:40px 48px}
+.movl.open{display:flex}
+.mcls{align-self:flex-end;background:none;border:none;font-size:1.4rem;cursor:pointer;margin-bottom:40px;color:var(--black)}
+.movl a{font-family:var(--serif);font-size:2.2rem;color:var(--black);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--border)}
+
+/* ── HERO ── */
+#hero{padding:160px 48px 100px;display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:0}
+.hl{} 
+.hlabel{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gray);margin-bottom:22px}
+.htitle{font-family:var(--serif);font-size:clamp(3rem,5.8vw,5.8rem);font-weight:400;line-height:1.0;letter-spacing:-.01em}
+.htitle em{font-style:italic}
+.hr{padding-left:80px;padding-bottom:8px}
+.hdesc{font-size:.87rem;line-height:1.95;color:var(--gray);max-width:340px;margin-bottom:36px}
+.hcta{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:gap .3s,color .2s}
+.hcta:hover{gap:18px;color:var(--black)}
+.hcta::after{content:'↓'}
+
+/* ── PROJECTS ── */
+#projects{padding:0 48px 140px}
+.phdr{display:flex;align-items:baseline;justify-content:space-between;padding:44px 0 56px;border-top:1px solid var(--border)}
+.phdrtxt{font-family:var(--serif);font-size:.85rem;color:var(--gray);font-weight:400;letter-spacing:.06em}
+.frow{display:flex;gap:20px}
+.fb{background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);transition:color .2s;padding:0}
+.fb.on,.fb:hover{color:var(--black)}
+
+/* ── MASONRY GRID ── */
+/* Two-column asymmetric layout with absolute positions calculated by JS */
+#pgrid{position:relative;width:100%}
+.pc{position:absolute;transition:opacity .4s}
+.pc-inner{position:relative;overflow:hidden;background:#f0eeec;cursor:pointer}
+.pc-inner img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s ease,filter .5s}
+.pc:hover .pc-inner img{transform:scale(1.04);filter:brightness(1.02)}
+.pc-cap{padding:12px 0 0}
+.pc-cat{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);margin-bottom:3px}
+.pc-name{font-family:var(--serif);font-size:.95rem;font-weight:400;color:var(--black);line-height:1.25}
+.pc-name em{font-style:italic}
+.pc-loc{font-size:.62rem;color:var(--gray);margin-top:2px}
+
+.vall{text-align:center;padding:72px 0 0}
+.vall a{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:gap .3s,color .2s}
+.vall a:hover{gap:18px;color:var(--black)}
+.vall a::after{content:'→'}
+
+/* ── ABOUT ── */
+#about{border-top:1px solid var(--border);padding:120px 48px;display:grid;grid-template-columns:200px 1fr 1fr;gap:80px}
+.slabel{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);padding-top:5px}
+.ah{font-family:var(--serif);font-size:clamp(2rem,3vw,2.9rem);font-weight:400;line-height:1.15;margin-bottom:32px}
+.ah em{font-style:italic}
+.ab{font-size:.87rem;line-height:1.95;color:#666}
+.ab p+p{margin-top:16px}
+.astats{display:flex;flex-direction:column;gap:32px;padding-top:4px}
+.stn{font-family:var(--serif);font-size:2.8rem;font-weight:400;line-height:1;letter-spacing:-.02em}
+.stl{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-top:4px}
+
+/* ── SERVICES ── */
+#services{border-top:1px solid var(--border);padding:120px 48px}
+.stop{display:grid;grid-template-columns:200px 1fr;gap:80px;margin-bottom:72px}
+.stitle{font-family:var(--serif);font-size:clamp(2rem,3vw,2.9rem);font-weight:400;line-height:1.15}
+.stitle em{font-style:italic}
+.stbl{border-top:1px solid var(--border)}
+.sr{display:grid;grid-template-columns:200px 1fr 1fr 1fr;gap:36px;padding:32px 0;border-bottom:1px solid var(--border);transition:background .2s;cursor:default}
+.sr:hover{background:var(--off);margin:0 -48px;padding:32px 48px}
+.snum{font-family:var(--serif);font-size:.78rem;color:var(--gray);padding-top:4px}
+.sname{font-family:var(--serif);font-size:1.35rem;font-weight:400}
+.sdesc{font-size:.82rem;line-height:1.85;color:#666}
+.stags{display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start}
+.tag{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--border);color:var(--gray);padding:5px 10px}
+
+/* ── CONTACT ── */
+#contact{border-top:1px solid var(--border);padding:120px 48px;display:grid;grid-template-columns:200px 1fr 1fr;gap:80px}
+.cth{font-family:var(--serif);font-size:clamp(2rem,3vw,2.9rem);font-weight:400;line-height:1.15;margin-bottom:44px}
+.cth em{font-style:italic}
+.irows{display:flex;flex-direction:column;gap:20px}
+.ir{display:grid;grid-template-columns:68px 1fr;gap:12px}
+.ik{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);padding-top:3px}
+.iv{font-size:.84rem;color:#555;line-height:1.65}
+.ff{margin-bottom:22px}
+.ff label{display:block;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);margin-bottom:9px}
+.ff input,.ff textarea,.ff select{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--black);padding:9px 0;font-family:var(--sans);font-size:.87rem;font-weight:300;outline:none;transition:border-color .3s;appearance:none}
+.ff input:focus,.ff textarea:focus,.ff select:focus{border-bottom-color:var(--black)}
+.ff textarea{min-height:72px;resize:none}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.bsub{margin-top:10px;background:none;border:none;font-family:var(--sans);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--black);cursor:pointer;padding:0;display:flex;align-items:center;gap:10px;transition:gap .3s}
+.bsub:hover{gap:18px}
+.bsub::after{content:'→';font-size:1rem}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;justify-content:space-between;align-items:center}
+.flogo{font-family:var(--serif);font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;color:var(--black)}
+.fcopy{font-size:.6rem;letter-spacing:.08em;color:var(--gray)}
+.flinks{display:flex;gap:22px}
+.flinks a{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color .2s}
+.flinks a:hover{color:var(--black)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .85s ease,transform .85s ease}
+.rv.in{opacity:1;transform:none}
+
+/* mobile */
+@media(max-width:860px){
+  nav{padding:18px 24px}nav.sc{padding:14px 24px}
+  .nlinks{display:none}.nmob{display:flex}
+  #hero{grid-template-columns:1fr;padding:110px 24px 56px;gap:24px}
+  .hr{padding-left:0}
+  #projects{padding:0 24px 80px}
+  #pgrid{position:static!important;height:auto!important;display:flex;flex-direction:column;gap:32px}
+  .pc{position:static!important;width:100%!important;left:auto!important;top:auto!important}
+  .pc-inner{height:58vw!important}
+  #about{grid-template-columns:1fr;gap:32px;padding:80px 24px}
+  .slabel{display:none}
+  .astats{flex-direction:row;flex-wrap:wrap;gap:24px}
+  #services{padding:80px 24px}
+  .stop{grid-template-columns:1fr;gap:14px}
+  .sr{grid-template-columns:1fr;gap:10px}
+  .sr:hover{margin:0 -24px;padding:24px 24px}
+  .snum,.stags{display:none}
+  #contact{grid-template-columns:1fr;gap:32px;padding:80px 24px}
+  .f2{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:12px;padding:22px 24px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="logo">Hoom</a>
+  <ul class="nlinks">
+    <li><a href="#projects">Dự án</a></li>
+    <li><a href="#about">Giới thiệu</a></li>
+    <li><a href="#services">Dịch vụ</a></li>
+    <li><a href="#contact">Liên hệ</a></li>
+  </ul>
+  <button class="nmob" id="mBtn"><span></span><span></span></button>
+</nav>
+<div class="movl" id="mNav">
+  <button class="mcls" id="mCls">✕</button>
+  <a href="#projects" onclick="cMob()">Dự án</a>
+  <a href="#about" onclick="cMob()">Giới thiệu</a>
+  <a href="#services" onclick="cMob()">Dịch vụ</a>
+  <a href="#contact" onclick="cMob()">Liên hệ</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hl">
+    <p class="hlabel">Kiến trúc & Thi công</p>
+    <h1 class="htitle">Không gian<br>được <em>tạo ra</em><br>để sống</h1>
+  </div>
+  <div class="hr">
+    <p class="hdesc">Hoom thiết kế những công trình nơi kiến trúc và cuộc sống hòa vào nhau — mỗi không gian là một câu trả lời riêng cho từng gia chủ.</p>
+    <a href="#projects" class="hcta">Xem dự án</a>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="phdr rv">
+    <span class="phdrtxt">Dự án đã thực hiện</span>
+    <div class="frow">
+      <button class="fb on" onclick="doFilter('all',this)">Tất cả</button>
+      <button class="fb" onclick="doFilter('nha-o',this)">Nhà ở</button>
+      <button class="fb" onclick="doFilter('thuong-mai',this)">Thương mại</button>
+      <button class="fb" onclick="doFilter('noi-that',this)">Nội thất</button>
+    </div>
+  </div>
+
+  <!-- JS will position these absolutely inside #pgrid -->
+  <div id="pgrid">
+
+    <div class="pc" data-cat="nha-o" data-col="0" data-w="0.56" data-h="520">
+      <div class="pc-inner">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=85&fit=crop" alt="">
+      </div>
+      <div class="pc-cap">
+        <p class="pc-cat">Nhà ở — Biệt thự</p>
+        <p class="pc-name">Biệt thự <em>Hải Phong</em></p>
+        <p class="pc-loc">Đà Nẵng · 2024</p>
+      </div>
+    </div>
+
+    <div class="pc" data-cat="thuong-mai" data-col="1" data-w="0.38" data-h="320">
+      <div class="pc-inner">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=85&fit=crop" alt="">
+      </div>
+      <div class="pc-cap">
+        <p class="pc-cat">Thương mại — Văn phòng</p>
+        <p class="pc-name">The Arc <em>Office</em></p>
+        <p class="pc-loc">Hà Nội · 2024</p>
+      </div>
+    </div>
+
+    <div class="pc" data-cat="nha-o" data-col="1" data-w="0.28" data-h="400" data-offset="0.1">
+      <div class="pc-inner">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=85&fit=crop&crop=right" alt="">
+      </div>
+      <div class="pc-cap">
+        <p class="pc-cat">Nhà ở</p>
+        <p class="pc-name"><em>Villa</em> Ánh Dương</p>
+        <p class="pc-loc">Hội An · 2023</p>
+      </div>
+    </div>
+
+    <div class="pc" data-cat="noi-that" data-col="0" data-w="0.32" data-h="380" data-offset="0.08">
+      <div class="pc-inner">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=85&fit=crop" alt="">
+      </div>
+      <div class="pc-cap">
+        <p class="pc-cat">Nội thất — Penthouse</p>
+        <p class="pc-name">Sky <em>Penthouse</em></p>
+        <p class="pc-loc">TP.HCM · 2023</p>
+      </div>
+    </div>
+
+    <div class="pc" data-cat="thuong-mai" data-col="1" data-w="0.46" data-h="460">
+      <div class="pc-inner">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1100&q=85&fit=crop" alt="">
+      </div>
+      <div class="pc-cap">
+        <p class="pc-cat">Thương mại — F&B</p>
+        <p class="pc-name">Nhà hàng <em>Sơn Trà</em></p>
+        <p class="pc-loc">Đà Nẵng · 2022</p>
+      </div>
+    </div>
+
+    <div class="pc" data-cat="noi-that" data-col="0" data-w="0.44" data-h="500">
+      <div class="pc-inner">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1000&q=85&fit=crop" alt="">
+      </div>
+      <div class="pc-cap">
+        <p class="pc-cat">Nội thất</p>
+        <p class="pc-name">The Loft <em>Interior</em></p>
+        <p class="pc-loc">TP.HCM · 2023</p>
+      </div>
+    </div>
+
+    <div class="pc" data-cat="nha-o" data-col="1" data-w="0.3" data-h="350" data-offset="0.12">
+      <div class="pc-inner">
+        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=85&fit=crop" alt="">
+      </div>
+      <div class="pc-cap">
+        <p class="pc-cat">Nhà ở — Nhà phố</p>
+        <p class="pc-name">Nhà phố <em>Gia Định</em></p>
+        <p class="pc-loc">TP.HCM · 2022</p>
+      </div>
+    </div>
+
+    <div class="pc" data-cat="nha-o" data-col="0" data-w="0.38" data-h="420" data-offset="0.06">
+      <div class="pc-inner">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1000&q=85&fit=crop" alt="">
+      </div>
+      <div class="pc-cap">
+        <p class="pc-cat">Nhà ở — Biệt thự</p>
+        <p class="pc-name">Biệt thự <em>Nam Ô</em></p>
+        <p class="pc-loc">Đà Nẵng · 2021</p>
+      </div>
+    </div>
+
+    <div class="pc" data-cat="noi-that" data-col="1" data-w="0.5" data-h="440">
+      <div class="pc-inner">
+        <img src="https://images.unsplash.com/photo-1617104678098-de229db51175?w=1000&q=85&fit=crop" alt="">
+      </div>
+      <div class="pc-cap">
+        <p class="pc-cat">Nội thất — Văn phòng</p>
+        <p class="pc-name">Studio <em>Workspace</em></p>
+        <p class="pc-loc">Đà Nẵng · 2021</p>
+      </div>
+    </div>
+
+  </div><!-- #pgrid -->
+
+  <div class="vall rv"><a href="#contact">Xem toàn bộ dự án</a></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="slabel rv">Về Hoom</div>
+  <div class="rv">
+    <h2 class="ah">Chúng tôi thiết kế<br>những không gian <em>có ý nghĩa</em></h2>
+    <div class="ab">
+      <p>Hoom là studio kiến trúc và thi công thành lập tại Đà Nẵng. Chúng tôi tin rằng kiến trúc tốt không bắt đầu từ hình thức — mà từ sự lắng nghe.</p>
+      <p>Mỗi dự án là một cuộc đối thoại giữa gia chủ, địa điểm và ý tưởng. Chúng tôi thiết kế không gian phục vụ cuộc sống thực — đẹp, bền, và đúng với người sử dụng.</p>
+    </div>
+  </div>
+  <div class="astats rv">
+    <div><div class="stn">120+</div><div class="stl">Dự án hoàn thành</div></div>
+    <div><div class="stn">10+</div><div class="stl">Năm kinh nghiệm</div></div>
+    <div><div class="stn">3</div><div class="stl">Văn phòng</div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="stop rv">
+    <span class="slabel">Dịch vụ</span>
+    <h2 class="stitle">Những gì<br>chúng tôi <em>làm</em></h2>
+  </div>
+  <div class="stbl rv">
+    <div class="sr">
+      <span class="snum">01</span>
+      <span class="sname">Thiết kế kiến trúc</span>
+      <span class="sdesc">Từ ý tưởng đến hồ sơ thi công — giải pháp không gian tối ưu cho từng loại công trình và điều kiện địa điểm.</span>
+      <div class="stags"><span class="tag">Nhà ở</span><span class="tag">Biệt thự</span><span class="tag">Thương mại</span><span class="tag">Cảnh quan</span></div>
+    </div>
+    <div class="sr">
+      <span class="snum">02</span>
+      <span class="sname">Thiết kế nội thất</span>
+      <span class="sdesc">Không gian nội thất phản ánh cá tính gia chủ, hòa quyện tự nhiên với kiến trúc tổng thể của công trình.</span>
+      <div class="stags"><span class="tag">Nhà ở cao cấp</span><span class="tag">Văn phòng</span><span class="tag">F&B</span><span class="tag">Khách sạn</span></div>
+    </div>
+    <div class="sr">
+      <span class="snum">03</span>
+      <span class="sname">Thi công trọn gói</span>
+      <span class="sdesc">Đảm nhận toàn bộ quá trình từ móng đến hoàn thiện, giám sát chặt chẽ và bàn giao đúng tiến độ cam kết.</span>
+      <div class="stags"><span class="tag">Thi công thô</span><span class="tag">Hoàn thiện</span><span class="tag">Cải tạo</span><span class="tag">Giám sát</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="slabel rv">Liên hệ</div>
+  <div class="rv">
+    <h2 class="cth">Hãy kể cho<br>chúng tôi nghe <em>ý tưởng</em> của bạn</h2>
+    <div class="irows">
+      <div class="ir"><span class="ik">Email</span><span class="iv">hello@hoom.vn</span></div>
+      <div class="ir"><span class="ik">Điện thoại</span><span class="iv">0905 000 000</span></div>
+      <div class="ir"><span class="ik">Địa chỉ</span><span class="iv">123 Nguyễn Văn Linh<br>Đà Nẵng, Việt Nam</span></div>
+      <div class="ir"><span class="ik">Giờ mở cửa</span><span class="iv">Thứ 2 – Thứ 7, 08:00 – 17:30</span></div>
+    </div>
+  </div>
+  <form class="rv" onsubmit="doSub(event)">
+    <div class="f2">
+      <div class="ff"><label>Họ và tên</label><input type="text" placeholder="Nguyễn Văn A" required></div>
+      <div class="ff"><label>Điện thoại</label><input type="tel" placeholder="0905 000 000" required></div>
+    </div>
+    <div class="ff"><label>Email</label><input type="email" placeholder="email@example.com"></div>
+    <div class="ff">
+      <label>Loại dự án</label>
+      <select>
+        <option value="">Chọn loại dự án</option>
+        <option>Nhà ở / Biệt thự</option><option>Nhà phố</option>
+        <option>Văn phòng / Thương mại</option><option>Nội thất</option><option>Cải tạo</option>
+      </select>
+    </div>
+    <div class="ff"><label>Nội dung</label><textarea placeholder="Diện tích, ngân sách, yêu cầu đặc biệt..."></textarea></div>
+    <button type="submit" class="bsub" id="sb">Gửi yêu cầu</button>
+  </form>
+</section>
+
+<footer>
+  <span class="flogo">Hoom</span>
+  <span class="fcopy">© 2025 Hoom · Kiến trúc & Thi công</span>
+  <div class="flinks"><a href="#">Facebook</a><a href="#">Instagram</a><a href="#">Zalo</a></div>
+</footer>
+
+<script>
+/* ── NAV ── */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>40));
+document.getElementById('mBtn').onclick=()=>document.getElementById('mNav').classList.add('open');
+document.getElementById('mCls').onclick=cMob;
+function cMob(){document.getElementById('mNav').classList.remove('open')}
+
+/* ── MASONRY LAYOUT ── */
+// Layout data: [colStart(0=left,1=right), widthFraction of total, imgHeight, topOffsetFraction]
+// Positions are computed from total grid width so they're truly relative
+const LAYOUT = [
+  // col, widthFrac, imgH, colOffset(fraction of col width from col edge)
+  {col:0, wf:0.55, h:500, off:0},   // 1: big left
+  {col:1, wf:0.36, h:310, off:0},   // 2: top right
+  {col:1, wf:0.26, h:390, off:0.1}, // 3: narrow far right — slightly inset
+  {col:0, wf:0.30, h:370, off:0.08},// 4: small left mid
+  {col:1, wf:0.44, h:450, off:0},   // 5: right
+  {col:0, wf:0.42, h:490, off:0},   // 6: left big
+  {col:1, wf:0.28, h:340, off:0.14},// 7: right inset
+  {col:0, wf:0.36, h:410, off:0.05},// 8: left offset
+  {col:1, wf:0.48, h:430, off:0},   // 9: right wide
+];
+const GAP = 40; // vertical gap between rows
+const CAP_H = 56; // approximate caption height
+
+function buildGrid(){
+  const grid = document.getElementById('pgrid');
+  const cards = Array.from(grid.querySelectorAll('.pc'));
+  const totalW = grid.offsetWidth;
+  if(!totalW) return;
+
+  // Track current bottom Y for left and right columns
+  let colBottom = [0, 0];
+
+  cards.forEach((card, i) => {
+    const cfg = LAYOUT[i] || {col:i%2, wf:0.4, h:400, off:0};
+    const col = cfg.col;
+    const imgW = Math.round(totalW * cfg.wf);
+    const imgH = cfg.h;
+    const colW = totalW / 2;
+    const offsetX = Math.round(colW * cfg.off);
+    const x = col === 0 ? offsetX : Math.round(colW) + offsetX;
+    const y = colBottom[col];
+
+    card.style.left = x + 'px';
+    card.style.top  = y + 'px';
+    card.style.width = imgW + 'px';
+
+    card.querySelector('.pc-inner').style.height = imgH + 'px';
+
+    colBottom[col] = y + imgH + CAP_H + GAP;
+  });
+
+  grid.style.height = Math.max(colBottom[0], colBottom[1]) + 'px';
+}
+
+// Run after images start loading so layout is stable
+window.addEventListener('load', buildGrid);
+window.addEventListener('resize', buildGrid);
+// Also run immediately and after short delay for fonts
+buildGrid();
+setTimeout(buildGrid, 400);
+
+/* ── FILTER ── */
+function doFilter(cat, btn){
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.pc').forEach(p=>{
+    const show = cat==='all' || p.dataset.cat===cat;
+    p.style.opacity = show?'1':'0.1';
+    p.style.pointerEvents = show?'auto':'none';
+  });
+}
+
+/* ── REVEAL ── */
+const ro = new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});
+},{threshold:0.07});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+/* ── FORM ── */
+function doSub(e){
+  e.preventDefault();
+  const b=document.getElementById('sb');
+  b.textContent='Đã gửi ✓';b.style.opacity='.4';b.style.pointerEvents='none';
+  setTimeout(()=>{b.textContent='Gửi yêu cầu';b.style.opacity='';b.style.pointerEvents='';e.target.reset();},3500);
+}
+</script>
+</body>
+</html>

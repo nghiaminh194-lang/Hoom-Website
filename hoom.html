@@ -3,25 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hoom — Kiến trúc & Thi công</title>
+<title>Hoom</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --black:#111;--white:#fff;--off:#f8f7f5;
-  --gray:#9a9a9a;--border:#e5e5e3;
+  --black:#111;--white:#fff;
+  --gray:#999;--border:#e8e8e6;
   --serif:'EB Garamond',Georgia,serif;
   --sans:'Inter',sans-serif;
 }
 html{scroll-behavior:smooth}
 body{background:var(--white);color:var(--black);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:28px 48px;background:rgba(255,255,255,0.96);backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color .4s,padding .3s}
-nav.sc{border-bottom-color:var(--border);padding:16px 48px}
-.logo{font-family:var(--serif);font-size:1.2rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--black)}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:28px 48px;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .4s,padding .3s}
+nav.sc{border-bottom-color:var(--border);padding:18px 48px}
+.logo{font-family:var(--serif);font-size:1.15rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--black)}
 .nlinks{display:flex;gap:36px;list-style:none}
-.nlinks a{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--gray);transition:color .2s}
+.nlinks a{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--gray);transition:color .2s}
 .nlinks a:hover{color:var(--black)}
 .nmob{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
 .nmob span{display:block;width:20px;height:1px;background:var(--black)}
@@ -30,93 +30,64 @@ nav.sc{border-bottom-color:var(--border);padding:16px 48px}
 .mcls{align-self:flex-end;background:none;border:none;font-size:1.4rem;cursor:pointer;margin-bottom:40px;color:var(--black)}
 .movl a{font-family:var(--serif);font-size:2rem;color:var(--black);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--border)}
 
-/* HERO */
-#hero{padding:160px 48px 100px;display:grid;grid-template-columns:1fr 1fr;align-items:end}
-.hlabel{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gray);margin-bottom:22px}
-.htitle{font-family:var(--serif);font-size:clamp(3rem,5.8vw,5.6rem);font-weight:400;line-height:1.0;letter-spacing:-.01em}
-.htitle em{font-style:italic}
-.hr{padding-left:80px;padding-bottom:8px}
-.hdesc{font-size:.87rem;line-height:1.95;color:var(--gray);max-width:340px;margin-bottom:36px}
-.hcta{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:gap .3s,color .2s}
-.hcta:hover{gap:18px;color:var(--black)}
-.hcta::after{content:'↓'}
+/* ── FEATURED PROJECT ── */
+#featured{padding:100px 48px 0}
+.feat-img{width:100%;aspect-ratio:16/9;overflow:hidden;background:#f0eeec;cursor:pointer}
+.feat-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease}
+.feat-img:hover img{transform:scale(1.03)}
+.feat-cap{padding:18px 0 0;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--border);padding-bottom:20px}
+.feat-meta{}
+.feat-tag{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);margin-bottom:6px}
+.feat-title{font-family:var(--serif);font-size:1.6rem;font-weight:400;color:var(--black);line-height:1.2}
+.feat-title em{font-style:italic}
+.feat-right{font-size:.72rem;color:var(--gray);text-align:right;line-height:1.7}
 
-/* PROJECTS */
-#projects{padding:0 48px 140px}
-.phdr{display:flex;align-items:baseline;justify-content:space-between;padding:44px 0 56px;border-top:1px solid var(--border)}
-.phdrtxt{font-family:var(--serif);font-size:.85rem;color:var(--gray);font-weight:400;letter-spacing:.06em}
-.frow{display:flex;gap:20px}
-.fb{background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);transition:color .2s;padding:0}
-.fb.on,.fb:hover{color:var(--black)}
-
-/* MASONRY */
+/* ── MASONRY ── */
+#projects{padding:60px 48px 120px}
 #pgrid{position:relative;width:100%}
 .pc{position:absolute}
 .pc-inner{overflow:hidden;background:#f0eeec;cursor:pointer}
 .pc-inner img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s ease}
 .pc:hover .pc-inner img{transform:scale(1.04)}
-.pc-cap{padding:11px 0 0}
-.pc-cat{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);margin-bottom:3px}
-.pc-name{font-family:var(--serif);font-size:.95rem;font-weight:400;color:var(--black);line-height:1.25}
+.pc-cap{padding:10px 0 0}
+.pc-cat{font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);margin-bottom:3px}
+.pc-name{font-family:var(--serif);font-size:.92rem;font-weight:400;color:var(--black);line-height:1.25}
 .pc-name em{font-style:italic}
-.pc-loc{font-size:.62rem;color:var(--gray);margin-top:2px}
+.pc-loc{font-size:.6rem;color:var(--gray);margin-top:2px}
 .pc{transition:opacity .4s}
 
-.vall{text-align:center;padding:72px 0 0}
-.vall a{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:gap .3s,color .2s}
-.vall a:hover{gap:18px;color:var(--black)}
-.vall a::after{content:'→'}
-
-/* ABOUT */
-#about{border-top:1px solid var(--border);padding:120px 48px;display:grid;grid-template-columns:200px 1fr 1fr;gap:80px}
-.slabel{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);padding-top:5px}
-.ah{font-family:var(--serif);font-size:clamp(2rem,3vw,2.9rem);font-weight:400;line-height:1.15;margin-bottom:32px}
-.ah em{font-style:italic}
-.ab{font-size:.87rem;line-height:1.95;color:#666}
-.ab p+p{margin-top:16px}
-.astats{display:flex;flex-direction:column;gap:32px;padding-top:4px}
-.stn{font-family:var(--serif);font-size:2.8rem;font-weight:400;line-height:1;letter-spacing:-.02em}
-.stl{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-top:4px}
-
-/* FOOTER + CONTACT */
-footer{border-top:1px solid var(--border);padding:40px 48px 32px;display:flex;justify-content:space-between;align-items:flex-start;gap:60px}
-.foot-brand{font-family:var(--serif);font-size:1.1rem;letter-spacing:.14em;text-transform:uppercase;color:var(--black);margin-bottom:20px}
-.foot-info{display:flex;flex-direction:column;gap:8px}
-.foot-row{display:flex;gap:14px;align-items:baseline}
-.foot-key{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);min-width:80px}
-.foot-val{font-size:.78rem;color:#555}
-.foot-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:24px}
-.flinks{display:flex;gap:20px}
-.flinks a{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color .2s}
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:36px 48px 28px;display:flex;justify-content:space-between;align-items:flex-start;gap:40px}
+.foot-brand{font-family:var(--serif);font-size:1rem;letter-spacing:.16em;text-transform:uppercase;color:var(--black);display:block;margin-bottom:16px}
+.foot-info{display:flex;flex-direction:column;gap:6px}
+.foot-row{display:flex;gap:12px;align-items:baseline}
+.foot-key{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);min-width:76px}
+.foot-val{font-size:.75rem;color:#666}
+.foot-right{display:flex;flex-direction:column;align-items:flex-end;gap:20px;padding-top:4px}
+.flinks{display:flex;gap:18px}
+.flinks a{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color .2s}
 .flinks a:hover{color:var(--black)}
-.fcopy{font-size:.58rem;letter-spacing:.06em;color:#bbb}
+.fcopy{font-size:.56rem;color:#ccc;letter-spacing:.06em}
 
-/* REVEAL */
-.rv{opacity:0;transform:translateY(14px);transition:opacity .85s ease,transform .85s ease}
-.rv.in{opacity:1;transform:none}
-
-/* MOBILE */
-@media(max-width:860px){
-  nav{padding:18px 24px}
-  nav.sc{padding:12px 24px}
-  .nlinks{display:none}
-  .nmob{display:flex}
-  #hero{grid-template-columns:1fr;padding:110px 24px 56px;gap:24px}
-  .hr{padding-left:0}
-  #projects{padding:0 24px 80px}
-  #pgrid{position:static!important;height:auto!important;display:flex;flex-direction:column;gap:28px}
+/* ── MOBILE ── */
+@media(max-width:768px){
+  nav{padding:18px 20px}nav.sc{padding:14px 20px}
+  .nlinks{display:none}.nmob{display:flex}
+  #featured{padding:80px 20px 0}
+  .feat-cap{flex-direction:column;gap:8px}
+  .feat-right{text-align:left}
+  #projects{padding:40px 20px 80px}
+  #pgrid{display:flex;flex-direction:column;gap:24px;position:static;height:auto!important}
   .pc{position:static!important;width:100%!important;left:auto!important;top:auto!important}
-  .pc-inner{height:60vw!important}
-  #about{grid-template-columns:1fr;gap:28px;padding:72px 24px}
-  .slabel{display:none}
-  .astats{flex-direction:row;flex-wrap:wrap;gap:24px}
-  footer{flex-direction:column;gap:28px;padding:36px 24px 28px}
+  .pc-inner{height:56vw!important}
+  footer{flex-direction:column;gap:24px;padding:28px 20px}
   .foot-right{align-items:flex-start}
 }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav id="nav">
   <a href="#" class="logo">Hoom</a>
   <ul class="nlinks">
@@ -126,7 +97,6 @@ footer{border-top:1px solid var(--border);padding:40px 48px 32px;display:flex;ju
   </ul>
   <button class="nmob" id="mBtn"><span></span><span></span></button>
 </nav>
-
 <div class="movl" id="mNav">
   <button class="mcls" id="mCls">✕</button>
   <a href="#projects" onclick="cMob()">Dự án</a>
@@ -134,93 +104,64 @@ footer{border-top:1px solid var(--border);padding:40px 48px 32px;display:flex;ju
   <a href="#contact" onclick="cMob()">Liên hệ</a>
 </div>
 
-<!-- HERO -->
-<section id="hero">
-  <div>
-    <p class="hlabel">Kiến trúc & Thi công</p>
-    <h1 class="htitle">Không gian<br>được <em>tạo ra</em><br>để sống</h1>
+<!-- FEATURED -->
+<section id="featured">
+  <div class="feat-img">
+    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=90&fit=crop" alt="Biệt thự Hải Phong">
   </div>
-  <div class="hr">
-    <p class="hdesc">Hoom thiết kế những công trình nơi kiến trúc và cuộc sống hòa vào nhau — mỗi không gian là một câu trả lời riêng cho từng gia chủ.</p>
-    <a href="#projects" class="hcta">Xem dự án</a>
+  <div class="feat-cap">
+    <div class="feat-meta">
+      <p class="feat-tag">Dự án tiêu biểu · Nhà ở</p>
+      <p class="feat-title">Biệt thự <em>Hải Phong</em></p>
+    </div>
+    <div class="feat-right">
+      Đà Nẵng<br>2024
+    </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
+<!-- MASONRY GRID -->
 <section id="projects">
-  <div class="phdr rv">
-    <span class="phdrtxt">Dự án đã thực hiện</span>
-    <div class="frow">
-      <button class="fb on" onclick="doFilter('all',this)">Tất cả</button>
-      <button class="fb" onclick="doFilter('nha-o',this)">Nhà ở</button>
-      <button class="fb" onclick="doFilter('thuong-mai',this)">Thương mại</button>
-      <button class="fb" onclick="doFilter('noi-that',this)">Nội thất</button>
-    </div>
-  </div>
-
   <div id="pgrid">
-    <div class="pc" data-cat="nha-o">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=85&fit=crop" alt="Biệt thự Hải Phong"></div>
-      <div class="pc-cap"><p class="pc-cat">Nhà ở — Biệt thự</p><p class="pc-name">Biệt thự <em>Hải Phong</em></p><p class="pc-loc">Đà Nẵng · 2024</p></div>
-    </div>
     <div class="pc" data-cat="thuong-mai">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=85&fit=crop" alt="The Arc Office"></div>
+      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=85&fit=crop" alt="The Arc Office" loading="lazy"></div>
       <div class="pc-cap"><p class="pc-cat">Thương mại — Văn phòng</p><p class="pc-name">The Arc <em>Office</em></p><p class="pc-loc">Hà Nội · 2024</p></div>
     </div>
     <div class="pc" data-cat="nha-o">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=85&fit=crop&crop=right" alt="Villa Ánh Dương"></div>
+      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=85&fit=crop" alt="Villa Ánh Dương" loading="lazy"></div>
       <div class="pc-cap"><p class="pc-cat">Nhà ở</p><p class="pc-name"><em>Villa</em> Ánh Dương</p><p class="pc-loc">Hội An · 2023</p></div>
     </div>
     <div class="pc" data-cat="noi-that">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=85&fit=crop" alt="Sky Penthouse"></div>
+      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=85&fit=crop" alt="Sky Penthouse" loading="lazy"></div>
       <div class="pc-cap"><p class="pc-cat">Nội thất — Penthouse</p><p class="pc-name">Sky <em>Penthouse</em></p><p class="pc-loc">TP.HCM · 2023</p></div>
     </div>
     <div class="pc" data-cat="thuong-mai">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1100&q=85&fit=crop" alt="Nhà hàng Sơn Trà"></div>
+      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1100&q=85&fit=crop" alt="Nhà hàng Sơn Trà" loading="lazy"></div>
       <div class="pc-cap"><p class="pc-cat">Thương mại — F&amp;B</p><p class="pc-name">Nhà hàng <em>Sơn Trà</em></p><p class="pc-loc">Đà Nẵng · 2022</p></div>
     </div>
     <div class="pc" data-cat="noi-that">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1000&q=85&fit=crop" alt="The Loft Interior"></div>
-      <div class="pc-cap"><p class="pc-cat">Nội thất</p><p class="pc-name">The Loft <em>Interior</em></p><p class="pc-loc">TP.HCM · 2023</p></div>
+      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1000&q=85&fit=crop" alt="The Loft Interior" loading="lazy"></div>
+      <div class="pc-cap"><p class="pc-cat">Nội thất</p><p class="pc-name">The Loft <em>Interior</em></p><p class="pc-loc">TP.HCM · 2022</p></div>
     </div>
     <div class="pc" data-cat="nha-o">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=85&fit=crop" alt="Nhà phố Gia Định"></div>
+      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=85&fit=crop" alt="Nhà phố Gia Định" loading="lazy"></div>
       <div class="pc-cap"><p class="pc-cat">Nhà ở — Nhà phố</p><p class="pc-name">Nhà phố <em>Gia Định</em></p><p class="pc-loc">TP.HCM · 2022</p></div>
     </div>
     <div class="pc" data-cat="nha-o">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1000&q=85&fit=crop" alt="Biệt thự Nam Ô"></div>
+      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1000&q=85&fit=crop" alt="Biệt thự Nam Ô" loading="lazy"></div>
       <div class="pc-cap"><p class="pc-cat">Nhà ở — Biệt thự</p><p class="pc-name">Biệt thự <em>Nam Ô</em></p><p class="pc-loc">Đà Nẵng · 2021</p></div>
     </div>
     <div class="pc" data-cat="noi-that">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1617104678098-de229db51175?w=1000&q=85&fit=crop" alt="Studio Workspace"></div>
+      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1617104678098-de229db51175?w=1000&q=85&fit=crop" alt="Studio Workspace" loading="lazy"></div>
       <div class="pc-cap"><p class="pc-cat">Nội thất — Văn phòng</p><p class="pc-name">Studio <em>Workspace</em></p><p class="pc-loc">Đà Nẵng · 2021</p></div>
     </div>
   </div>
-
-  <div class="vall rv"><a href="#contact">Xem toàn bộ dự án</a></div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="slabel rv">Về Hoom</div>
-  <div class="rv">
-    <h2 class="ah">Chúng tôi thiết kế<br>những không gian <em>có ý nghĩa</em></h2>
-    <div class="ab">
-      <p>Hoom là studio kiến trúc và thi công thành lập tại Đà Nẵng. Chúng tôi tin rằng kiến trúc tốt không bắt đầu từ hình thức — mà từ sự lắng nghe.</p>
-      <p>Mỗi dự án là một cuộc đối thoại giữa gia chủ, địa điểm và ý tưởng. Chúng tôi thiết kế không gian phục vụ cuộc sống thực — đẹp, bền, và đúng với người sử dụng.</p>
-    </div>
-  </div>
-  <div class="astats rv">
-    <div><div class="stn">120+</div><div class="stl">Dự án hoàn thành</div></div>
-    <div><div class="stn">10+</div><div class="stl">Năm kinh nghiệm</div></div>
-    <div><div class="stn">3</div><div class="stl">Văn phòng</div></div>
-  </div>
-</section>
-
-<!-- FOOTER + CONTACT -->
+<!-- FOOTER -->
 <footer id="contact">
   <div>
-    <div class="foot-brand">Hoom</div>
+    <span class="foot-brand">Hoom</span>
     <div class="foot-info">
       <div class="foot-row"><span class="foot-key">Email</span><span class="foot-val">hello@hoom.vn</span></div>
       <div class="foot-row"><span class="foot-key">Điện thoại</span><span class="foot-val">0905 000 000</span></div>
@@ -245,76 +186,44 @@ document.getElementById('mBtn').onclick=()=>document.getElementById('mNav').clas
 document.getElementById('mCls').onclick=cMob;
 function cMob(){document.getElementById('mNav').classList.remove('open')}
 
-// MASONRY — tính toán sau khi ảnh load xong
-// Mỗi card có: col (0=trái,1=phải), wf (% chiều rộng), h (chiều cao ảnh px), off (% lệch trong cột)
-const CFG = [
-  {col:0, wf:.55, h:500, off:0  },
-  {col:1, wf:.36, h:310, off:0  },
-  {col:1, wf:.26, h:390, off:.10},
-  {col:0, wf:.30, h:370, off:.08},
-  {col:1, wf:.44, h:450, off:0  },
-  {col:0, wf:.42, h:490, off:0  },
-  {col:1, wf:.28, h:340, off:.14},
-  {col:0, wf:.36, h:410, off:.05},
-  {col:1, wf:.48, h:430, off:0  },
+// MASONRY
+// col:0=trái,1=phải | wf:% rộng | h:cao ảnh | xoff:% lệch ngang | yoff:px lệch dọc
+const CFG=[
+  {col:0, wf:.42, h:420, xoff:0,   yoff:0  },
+  {col:1, wf:.34, h:280, xoff:.06, yoff:140},
+  {col:1, wf:.26, h:360, xoff:.16, yoff:0  },
+  {col:0, wf:.30, h:340, xoff:.08, yoff:0  },
+  {col:1, wf:.42, h:400, xoff:0,   yoff:0  },
+  {col:0, wf:.46, h:460, xoff:0,   yoff:0  },
+  {col:1, wf:.30, h:320, xoff:.12, yoff:60 },
+  {col:0, wf:.34, h:380, xoff:.06, yoff:0  },
 ];
-const GAP = 52;
-const CAP = 58; // caption height estimate (3 lines)
+const GAP=56, CAP=58;
 
 function buildGrid(){
-  const isMobile = window.innerWidth <= 860;
-  if(isMobile) return;
-
-  const grid = document.getElementById('pgrid');
-  const cards = Array.from(grid.querySelectorAll('.pc'));
-  const W = grid.offsetWidth;
+  if(window.innerWidth<=768) return;
+  const grid=document.getElementById('pgrid');
+  const cards=Array.from(grid.querySelectorAll('.pc'));
+  const W=grid.offsetWidth;
   if(!W) return;
-
-  const colH = [0, 0];
-
-  cards.forEach((card, i) => {
-    const c = CFG[i] || {col:i%2, wf:.4, h:400, off:0};
-    const imgW = Math.round(W * c.wf);
-    const imgH = c.h;
-    const colW = W / 2;
-    const x = c.col === 0
-      ? Math.round(colW * c.off)
-      : Math.round(colW) + Math.round(colW * c.off);
-    const y = colH[c.col];
-
-    card.style.cssText = `position:absolute;left:${x}px;top:${y}px;width:${imgW}px`;
-    card.querySelector('.pc-inner').style.height = imgH + 'px';
-
-    colH[c.col] = y + imgH + CAP + GAP;
+  const colH=[0,0];
+  cards.forEach((card,i)=>{
+    const c=CFG[i]||{col:i%2,wf:.4,h:400,xoff:0,yoff:0};
+    const imgW=Math.round(W*c.wf);
+    const colW=W/2;
+    const x=c.col===0?Math.round(colW*c.xoff):Math.round(colW)+Math.round(colW*c.xoff);
+    const y=colH[c.col]+c.yoff;
+    card.style.cssText=`position:absolute;left:${x}px;top:${y}px;width:${imgW}px`;
+    card.querySelector('.pc-inner').style.height=c.h+'px';
+    colH[c.col]=y+c.h+CAP+GAP;
   });
-
-  grid.style.height = Math.max(colH[0], colH[1]) + 'px';
+  grid.style.height=Math.max(colH[0],colH[1])+'px';
 }
 
-// Chạy ngay, sau 300ms (fonts), và sau khi load xong
 buildGrid();
-setTimeout(buildGrid, 300);
-window.addEventListener('load', buildGrid);
-window.addEventListener('resize', buildGrid);
-
-// FILTER
-function doFilter(cat, btn){
-  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  document.querySelectorAll('.pc').forEach(p=>{
-    const show = cat==='all' || p.dataset.cat===cat;
-    p.style.opacity = show ? '1' : '0.1';
-    p.style.pointerEvents = show ? 'auto' : 'none';
-  });
-  // Sau khi filter, rebuild để tránh khoảng trống
-  setTimeout(buildGrid, 50);
-}
-
-// REVEAL
-const ro = new IntersectionObserver(es=>{
-  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});
-},{threshold:0.07});
-document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+setTimeout(buildGrid,300);
+window.addEventListener('load',buildGrid);
+window.addEventListener('resize',buildGrid);
 </script>
 </body>
 </html>

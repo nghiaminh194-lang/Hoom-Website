@@ -3,279 +3,538 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hoom</title>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<title>Biệt thự Hải Phong — Hoom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Neue+Haas+Grotesk+Display+Pro:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --black:#111;--white:#fff;
-  --gray:#999;--border:#e8e8e6;
-  --serif:'EB Garamond',Georgia,serif;
-  --sans:'Inter',sans-serif;
-}
-html{scroll-behavior:smooth}
-body{background:var(--white);color:var(--black);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:28px 48px;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .4s,padding .3s}
-nav.sc{border-bottom-color:var(--border);padding:18px 48px}
-.logo{font-family:var(--serif);font-size:1.15rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--black)}
-.nlinks{display:flex;gap:36px;list-style:none}
-.nlinks a{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--gray);transition:color .2s}
-.nlinks a:hover{color:var(--black)}
-.nmob{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
-.nmob span{display:block;width:20px;height:1px;background:var(--black)}
-.movl{display:none;position:fixed;inset:0;z-index:300;background:var(--white);flex-direction:column;padding:40px 32px}
-.movl.open{display:flex}
-.mcls{align-self:flex-end;background:none;border:none;font-size:1.4rem;cursor:pointer;margin-bottom:40px;color:var(--black)}
-.movl a{font-family:var(--serif);font-size:2rem;color:var(--black);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--border)}
-
-/* ── FEATURED PROJECT ── */
-#featured{padding:100px 48px 0}
-.feat-img{width:66.666%;aspect-ratio:16/9;overflow:hidden;background:#f0eeec;cursor:pointer;margin:0 auto}
-.feat-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease}
-.feat-img:hover img{transform:scale(1.03)}
-.feat-cap{padding:18px 0 0;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--border);padding-bottom:20px;width:66.666%;margin:0 auto}
-.feat-meta{}
-.feat-tag{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);margin-bottom:6px}
-.feat-title{font-family:var(--serif);font-size:1.6rem;font-weight:400;color:var(--black);line-height:1.2}
-.feat-title em{font-style:italic}
-.feat-right{font-size:.72rem;color:var(--gray);text-align:right;line-height:1.7}
-
-/* ── MASONRY ── */
-#projects{padding:60px 48px 120px}
-#pgrid{position:relative;width:100%}
-.pc{position:absolute}
-.pc-inner{overflow:hidden;background:#f0eeec;cursor:pointer}
-.pc-inner img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s ease}
-.pc:hover .pc-inner img{transform:scale(1.04)}
-.pc-cap{padding:10px 0 0}
-.pc-cat{font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);margin-bottom:3px}
-.pc-name{font-family:var(--serif);font-size:.92rem;font-weight:400;color:var(--black);line-height:1.25}
-.pc-name em{font-style:italic}
-.pc-loc{font-size:.6rem;color:var(--gray);margin-top:2px}
-.pc{transition:opacity .4s}
-
-/* ── FOOTER ── */
-footer{border-top:1px solid var(--border);padding:36px 48px 28px;display:flex;justify-content:space-between;align-items:flex-start;gap:40px}
-.foot-brand{font-family:var(--serif);font-size:1rem;letter-spacing:.16em;text-transform:uppercase;color:var(--black);display:block;margin-bottom:16px}
-.foot-info{display:flex;flex-direction:column;gap:6px}
-.foot-row{display:flex;gap:12px;align-items:baseline}
-.foot-key{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);min-width:76px}
-.foot-val{font-size:.75rem;color:#666}
-.foot-right{display:flex;flex-direction:column;align-items:flex-end;gap:20px;padding-top:4px}
-.flinks{display:flex;gap:18px}
-.flinks a{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color .2s}
-.flinks a:hover{color:var(--black)}
-.fcopy{font-size:.56rem;color:#ccc;letter-spacing:.06em}
-
-/* ── MOBILE ── */
-@media(max-width:768px){
-  nav{padding:18px 20px}nav.sc{padding:14px 20px}
-  .nlinks{display:none}.nmob{display:flex}
-
-  /* Featured: full width */
-  #featured{padding:68px 0 0}
-  .feat-img{width:100%!important;margin:0!important;aspect-ratio:4/3}
-  .feat-cap{width:88%!important;margin:0 auto!important;flex-direction:column;gap:5px;padding-bottom:16px}
-  .feat-right{text-align:left}
-
-  /* Projects grid — Chipperfield mobile pattern */
-  #projects{padding:28px 0 80px}
-  #pgrid{
-    position:static!important;height:auto!important;
-    display:flex;flex-direction:column;gap:0
-  }
-  .pc{
-    position:static!important;left:auto!important;top:auto!important;
-    margin-bottom:36px;display:block
+  :root {
+    --black: #0e0e0e;
+    --white: #f5f4f0;
+    --mid: #888;
+    --rule: #d0cec8;
+    --serif: 'EB Garamond', Georgia, serif;
+    --sans: 'Neue Haas Grotesk Display Pro', 'Helvetica Neue', Arial, sans-serif;
+    --nav-h: 52px;
   }
 
-  /* Pattern: full → phải → trái → giữa → full → phải → trái → giữa... */
-  /* 1: full width, cao landscape */
-  .pc:nth-child(1){width:100%!important}
-  .pc:nth-child(1) .pc-inner{height:56vw!important}
-  .pc:nth-child(1) .pc-cap{padding:10px 20px 0}
+  html { font-size: 16px; scroll-behavior: smooth; }
 
-  /* 2: lệch phải 75%, cao portrait */
-  .pc:nth-child(2){width:75%!important;align-self:flex-end;margin-right:0}
-  .pc:nth-child(2) .pc-inner{height:72vw!important}
-  .pc:nth-child(2) .pc-cap{padding:10px 20px 0}
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
 
-  /* 3: lệch trái 70%, cao landscape */
-  .pc:nth-child(3){width:70%!important;align-self:flex-start}
-  .pc:nth-child(3) .pc-inner{height:48vw!important}
-  .pc:nth-child(3) .pc-cap{padding:10px 0 0 20px}
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--nav-h);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px;
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    transition: background .3s;
+  }
+  .nav-logo {
+    font-family: var(--sans);
+    font-size: .78rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--black);
+    font-weight: 500;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--black);
+    opacity: .55;
+    transition: opacity .2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-links a.active { opacity: 1; }
 
-  /* 4: giữa 60%, cao vuông */
-  .pc:nth-child(4){width:60%!important;align-self:center}
-  .pc:nth-child(4) .pc-inner{height:60vw!important}
-  .pc:nth-child(4) .pc-cap{padding:10px 0 0 12px}
+  /* ─── BACK LINK ─── */
+  .back-wrap {
+    padding-top: calc(var(--nav-h) + 36px);
+    padding-left: 32px;
+    padding-bottom: 0;
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: .7rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--mid);
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--black); }
+  .back-link svg { width: 14px; height: 14px; }
 
-  /* 5: full width, cao landscape */
-  .pc:nth-child(5){width:100%!important}
-  .pc:nth-child(5) .pc-inner{height:52vw!important}
-  .pc:nth-child(5) .pc-cap{padding:10px 20px 0}
+  /* ─── HERO HEADER ─── */
+  header {
+    padding: 28px 32px 0;
+    max-width: 820px;
+  }
+  .project-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .project-meta-line {
+    display: flex;
+    gap: 24px;
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .project-meta-line span::after {
+    content: '—';
+    margin-left: 24px;
+    opacity: .3;
+  }
+  .project-meta-line span:last-child::after { content: ''; }
 
-  /* 6: lệch phải 80%, cao portrait */
-  .pc:nth-child(6){width:80%!important;align-self:flex-end}
-  .pc:nth-child(6) .pc-inner{height:68vw!important}
-  .pc:nth-child(6) .pc-cap{padding:10px 20px 0}
+  /* ─── MAIN CONTENT ─── */
+  .project-body {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+  }
 
-  /* 7: lệch trái 65%, cao landscape */
-  .pc:nth-child(7){width:65%!important;align-self:flex-start}
-  .pc:nth-child(7) .pc-inner{height:44vw!important}
-  .pc:nth-child(7) .pc-cap{padding:10px 0 0 20px}
+  /* Intro paragraph */
+  .intro-text {
+    max-width: 680px;
+    font-family: var(--serif);
+    font-size: 1.18rem;
+    line-height: 1.72;
+    margin-bottom: 56px;
+    color: #1a1a1a;
+  }
 
-  /* 8: giữa 72%, cao landscape */
-  .pc:nth-child(8){width:72%!important;align-self:center}
-  .pc:nth-child(8) .pc-inner{height:50vw!important}
-  .pc:nth-child(8) .pc-cap{padding:10px 0 0 12px}
+  /* ─── FULL WIDTH IMAGE ─── */
+  .img-full {
+    width: 100%;
+    margin-bottom: 8px;
+    overflow: hidden;
+    cursor: zoom-in;
+  }
+  .img-full img {
+    width: 100%; height: auto;
+    display: block;
+    transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+  }
+  .img-full:hover img { transform: scale(1.018); }
 
-  footer{flex-direction:column;gap:24px;padding:28px 20px}
-  .foot-right{align-items:flex-start}
-}
+  /* ─── TWO-UP IMAGE ROW ─── */
+  .img-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .img-pair img {
+    width: 100%; height: auto;
+    display: block;
+    cursor: zoom-in;
+    transition: opacity .3s;
+  }
+  .img-pair img:hover { opacity: .92; }
+
+  /* Asymmetric pair: 58/42 */
+  .img-pair.wide-left { grid-template-columns: 58fr 42fr; }
+  .img-pair.wide-right { grid-template-columns: 42fr 58fr; }
+
+  /* ─── BODY PARAGRAPH ─── */
+  .body-text {
+    max-width: 640px;
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    line-height: 1.78;
+    color: #222;
+    margin: 52px 0;
+  }
+
+  /* ─── SINGLE IMAGE INSET ─── */
+  .img-inset {
+    max-width: 860px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    cursor: zoom-in;
+  }
+  .img-inset img {
+    width: 100%; height: auto; display: block;
+    transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+  }
+  .img-inset:hover img { transform: scale(1.018); }
+
+  /* ─── IMAGE CAPTION ─── */
+  .img-caption {
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 52px;
+  }
+
+  /* ─── DIVIDER ─── */
+  hr.rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 64px 0 0;
+  }
+
+  /* ─── DATA & CREDITS ─── */
+  .credits-section { padding: 48px 0 80px; }
+  .credits-title {
+    font-size: .72rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 40px;
+  }
+  .credits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .credit-item {
+    padding: 20px 24px 20px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .credit-label {
+    font-size: .66rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 6px;
+  }
+  .credit-value {
+    font-family: var(--serif);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--black);
+  }
+
+  /* ─── RELATED ─── */
+  .related-section { padding: 64px 0 0; }
+  .related-title {
+    font-size: .72rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 32px;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .related-card { text-decoration: none; color: inherit; display: block; }
+  .related-img {
+    width: 100%; aspect-ratio: 4/3;
+    overflow: hidden;
+    margin-bottom: 14px;
+    background: #ddd;
+  }
+  .related-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .5s cubic-bezier(.25,.46,.45,.94);
+  }
+  .related-card:hover .related-img img { transform: scale(1.04); }
+  .related-name {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+  .related-sub {
+    font-size: .7rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 28px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .68rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* ─── LIGHTBOX ─── */
+  .lightbox {
+    display: none;
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,.92);
+    align-items: center; justify-content: center;
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 92vw; max-height: 92vh;
+    object-fit: contain;
+    border: none;
+  }
+  .lightbox-close {
+    position: absolute; top: 24px; right: 28px;
+    background: none; border: none; color: #fff;
+    font-size: 1.6rem; cursor: pointer; opacity: .7;
+    line-height: 1;
+  }
+  .lightbox-close:hover { opacity: 1; }
+
+  /* ─── MOBILE ─── */
+  @media(max-width: 768px) {
+    nav { padding: 0 20px; }
+    .back-wrap { padding-left: 20px; }
+    header { padding: 24px 20px 0; }
+    .project-body { padding: 0 20px 60px; }
+    .nav-links { display: none; }
+    .credits-grid { grid-template-columns: 1fr 1fr; }
+    .related-grid { grid-template-columns: 1fr; }
+    .img-pair { grid-template-columns: 1fr !important; }
+    footer { padding: 24px 20px; }
+  }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav id="nav">
-  <a href="#" class="logo">Hoom</a>
-  <ul class="nlinks">
-    <li><a href="#projects">Dự án</a></li>
-    <li><a href="#about">Giới thiệu</a></li>
-    <li><a href="#contact">Liên hệ</a></li>
+<nav>
+  <a href="index.html" class="nav-logo">Hoom</a>
+  <ul class="nav-links">
+    <li><a href="index.html#projects" class="active">Dự án</a></li>
+    <li><a href="#">Giới thiệu</a></li>
+    <li><a href="#">Dịch vụ</a></li>
+    <li><a href="#">Liên hệ</a></li>
   </ul>
-  <button class="nmob" id="mBtn"><span></span><span></span></button>
 </nav>
-<div class="movl" id="mNav">
-  <button class="mcls" id="mCls">✕</button>
-  <a href="#projects" onclick="cMob()">Dự án</a>
-  <a href="#about" onclick="cMob()">Giới thiệu</a>
-  <a href="#contact" onclick="cMob()">Liên hệ</a>
+
+<!-- BACK -->
+<div class="back-wrap">
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M9 2L4 7l5 5"/>
+    </svg>
+    Tất cả dự án
+  </a>
 </div>
 
-<!-- FEATURED -->
-<section id="featured">
-  <div class="feat-img">
-    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=90&fit=crop" alt="Biệt thự Hải Phong">
+<!-- HEADER -->
+<header>
+  <h1 class="project-title">Biệt thự Hải Phong</h1>
+  <div class="project-meta-line">
+    <span>Đà Nẵng, Việt Nam</span>
+    <span>Nhà ở</span>
+    <span>2023–24</span>
   </div>
-  <div class="feat-cap">
-    <div class="feat-meta">
-      <p class="feat-tag">Dự án tiêu biểu · Nhà ở</p>
-      <p class="feat-title">Biệt thự <em>Hải Phong</em></p>
-    </div>
-    <div class="feat-right">
-      Đà Nẵng<br>2024
-    </div>
-  </div>
-</section>
+</header>
 
-<!-- MASONRY GRID -->
-<section id="projects">
-  <div id="pgrid">
-    <div class="pc" data-cat="thuong-mai">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=85&fit=crop" alt="The Arc Office" loading="lazy"></div>
-      <div class="pc-cap"><p class="pc-cat">Thương mại — Văn phòng</p><p class="pc-name">The Arc <em>Office</em></p><p class="pc-loc">Hà Nội · 2024</p></div>
-    </div>
-    <div class="pc" data-cat="nha-o">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=85&fit=crop" alt="Villa Ánh Dương" loading="lazy"></div>
-      <div class="pc-cap"><p class="pc-cat">Nhà ở</p><p class="pc-name"><em>Villa</em> Ánh Dương</p><p class="pc-loc">Hội An · 2023</p></div>
-    </div>
-    <div class="pc" data-cat="noi-that">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=85&fit=crop" alt="Sky Penthouse" loading="lazy"></div>
-      <div class="pc-cap"><p class="pc-cat">Nội thất — Penthouse</p><p class="pc-name">Sky <em>Penthouse</em></p><p class="pc-loc">TP.HCM · 2023</p></div>
-    </div>
-    <div class="pc" data-cat="thuong-mai">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1100&q=85&fit=crop" alt="Nhà hàng Sơn Trà" loading="lazy"></div>
-      <div class="pc-cap"><p class="pc-cat">Thương mại — F&amp;B</p><p class="pc-name">Nhà hàng <em>Sơn Trà</em></p><p class="pc-loc">Đà Nẵng · 2022</p></div>
-    </div>
-    <div class="pc" data-cat="noi-that">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1000&q=85&fit=crop" alt="The Loft Interior" loading="lazy"></div>
-      <div class="pc-cap"><p class="pc-cat">Nội thất</p><p class="pc-name">The Loft <em>Interior</em></p><p class="pc-loc">TP.HCM · 2022</p></div>
-    </div>
-    <div class="pc" data-cat="nha-o">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=85&fit=crop" alt="Nhà phố Gia Định" loading="lazy"></div>
-      <div class="pc-cap"><p class="pc-cat">Nhà ở — Nhà phố</p><p class="pc-name">Nhà phố <em>Gia Định</em></p><p class="pc-loc">TP.HCM · 2022</p></div>
-    </div>
-    <div class="pc" data-cat="nha-o">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1000&q=85&fit=crop" alt="Biệt thự Nam Ô" loading="lazy"></div>
-      <div class="pc-cap"><p class="pc-cat">Nhà ở — Biệt thự</p><p class="pc-name">Biệt thự <em>Nam Ô</em></p><p class="pc-loc">Đà Nẵng · 2021</p></div>
-    </div>
-    <div class="pc" data-cat="noi-that">
-      <div class="pc-inner"><img src="https://images.unsplash.com/photo-1617104678098-de229db51175?w=1000&q=85&fit=crop" alt="Studio Workspace" loading="lazy"></div>
-      <div class="pc-cap"><p class="pc-cat">Nội thất — Văn phòng</p><p class="pc-name">Studio <em>Workspace</em></p><p class="pc-loc">Đà Nẵng · 2021</p></div>
+<!-- BODY -->
+<div class="project-body">
+
+  <!-- Intro paragraph -->
+  <p class="intro-text">
+    Tọa lạc trên triền đồi hướng biển tại bán đảo Sơn Trà, Biệt thự Hải Phong được thiết kế như một sự tiếp nối tự nhiên của địa hình. Công trình kết hợp giữa tính bền vững và tính thẩm mỹ đương đại, tạo ra những không gian sống mở, gắn kết với cảnh quan bên ngoài trong từng thời điểm trong ngày.
+  </p>
+
+  <!-- Full-width image 1 -->
+  <div class="img-full" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1800&q=85&fit=crop&crop=center" alt="Biệt thự Hải Phong — mặt tiền">
+  </div>
+  <div class="img-caption">Mặt đứng phía tây — ánh sáng buổi chiều</div>
+
+  <!-- Full-width image 2 -->
+  <div class="img-full" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1800&q=85&fit=crop&crop=center" alt="Không gian sống ngoài trời">
+  </div>
+
+  <!-- Body paragraph 1 -->
+  <p class="body-text">
+    Ngôi nhà được phân cấp thành ba khối độc lập theo mặt bằng bậc thang, mỗi khối mang một chức năng riêng biệt: không gian sinh hoạt chung, khu ngủ nghỉ và không gian dịch vụ. Giữa các khối là những khoảng vườn treo được che bóng bởi hệ lam gỗ tếch—vừa là ranh giới mềm, vừa điều tiết gió và ánh sáng tự nhiên.
+  </p>
+
+  <!-- Plan drawings – pair -->
+  <div class="img-pair">
+    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=80&fit=crop&crop=center" alt="Mặt bằng tầng trệt" onclick="openLightbox(this.src)">
+    <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=80&fit=crop&crop=center" alt="Mặt cắt dọc" onclick="openLightbox(this.src)">
+  </div>
+  <div class="img-caption">Trái: Mặt bằng tầng trệt &nbsp;/&nbsp; Phải: Mặt cắt dọc</div>
+
+  <!-- Body paragraph 2 -->
+  <p class="body-text">
+    Vật liệu chủ đạo là đá bazan địa phương cho khối tường chịu lực, kết hợp với kính cường lực Low-E và gỗ tái chế. Sự tương phản giữa nặng và nhẹ, thô và tinh được thể hiện rõ nhất ở mặt tiền phía biển—nơi khối đá đặc chuyển dần thành hệ lưới kính mỏng mảnh nhìn ra Vịnh Đà Nẵng.
+  </p>
+
+  <!-- Asymmetric pair -->
+  <div class="img-pair wide-left">
+    <img src="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=1100&q=85&fit=crop&crop=center" alt="Phòng khách" onclick="openLightbox(this.src)">
+    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=85&fit=crop&crop=center" alt="Chi tiết lam gỗ" onclick="openLightbox(this.src)">
+  </div>
+
+  <!-- Body paragraph 3 -->
+  <p class="body-text">
+    Hệ thống kỹ thuật của công trình tích hợp điện mặt trời áp mái, thu nước mưa tái sử dụng cho tưới cây và nước sinh hoạt phụ trợ. Phần lớn vật liệu đất đào móng được tận dụng làm nền cảnh quan, giảm tối thiểu lượng vận chuyển ra khỏi công trường.
+  </p>
+
+  <!-- Single inset image -->
+  <div class="img-inset" onclick="openLightbox(this.querySelector('img').src)">
+    <img src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=1400&q=85&fit=crop&crop=center" alt="Khoảng sân vườn trung tâm">
+  </div>
+  <div class="img-caption">Sân vườn nội khu — nhìn từ trên xuống</div>
+
+  <!-- DIVIDER -->
+  <hr class="rule">
+
+  <!-- DATA & CREDITS -->
+  <div class="credits-section">
+    <div class="credits-title">Thông tin dự án</div>
+    <div class="credits-grid">
+      <div class="credit-item">
+        <div class="credit-label">Thiết kế</div>
+        <div class="credit-value">2022</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Khởi công</div>
+        <div class="credit-value">2023</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Hoàn thành</div>
+        <div class="credit-value">2024</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Diện tích xây dựng</div>
+        <div class="credit-value">620 m²</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Diện tích khuôn viên</div>
+        <div class="credit-value">1.200 m²</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Số tầng</div>
+        <div class="credit-value">3 tầng + tầng mái</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Chủ đầu tư</div>
+        <div class="credit-value">Gia đình ông Nguyễn Minh Hải</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Kiến trúc sư chủ trì</div>
+        <div class="credit-value">Hoom Architects</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Kiến trúc nội thất</div>
+        <div class="credit-value">Hoom Studio</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Kết cấu</div>
+        <div class="credit-value">Kỹ thuật số Kết cấu JSC</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Cảnh quan</div>
+        <div class="credit-value">Studio Xanh Đà Nẵng</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Nhiếp ảnh</div>
+        <div class="credit-value">Trịnh Quang Vũ</div>
+      </div>
     </div>
   </div>
-</section>
+
+  <!-- RELATED -->
+  <div class="related-section">
+    <div class="related-title">Dự án liên quan</div>
+    <div class="related-grid">
+      <a href="#" class="related-card">
+        <div class="related-img">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80&fit=crop" alt="The Arc Office">
+        </div>
+        <div class="related-name">The Arc Office</div>
+        <div class="related-sub">Hà Nội — Thương mại</div>
+      </a>
+      <a href="#" class="related-card">
+        <div class="related-img">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80&fit=crop" alt="Sky Penthouse">
+        </div>
+        <div class="related-name">Sky Penthouse</div>
+        <div class="related-sub">TP. Hồ Chí Minh — Nội thất</div>
+      </a>
+      <a href="#" class="related-card">
+        <div class="related-img">
+          <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&q=80&fit=crop" alt="Nhà phố Gia Định">
+        </div>
+        <div class="related-name">Nhà phố Gia Định</div>
+        <div class="related-sub">TP. Hồ Chí Minh — Nhà ở</div>
+      </a>
+    </div>
+  </div>
+
+</div><!-- /project-body -->
 
 <!-- FOOTER -->
-<footer id="contact">
-  <div>
-    <span class="foot-brand">Hoom</span>
-    <div class="foot-info">
-      <div class="foot-row"><span class="foot-key">Email</span><span class="foot-val">hello@hoom.vn</span></div>
-      <div class="foot-row"><span class="foot-key">Điện thoại</span><span class="foot-val">0905 000 000</span></div>
-      <div class="foot-row"><span class="foot-key">Địa chỉ</span><span class="foot-val">123 Nguyễn Văn Linh, Đà Nẵng</span></div>
-      <div class="foot-row"><span class="foot-key">Giờ làm việc</span><span class="foot-val">Thứ 2 – Thứ 7, 08:00 – 17:30</span></div>
-    </div>
-  </div>
-  <div class="foot-right">
-    <div class="flinks">
-      <a href="#">Facebook</a>
-      <a href="#">Instagram</a>
-      <a href="#">Zalo</a>
-    </div>
-    <span class="fcopy">© 2025 Hoom · Kiến trúc & Thi công</span>
-  </div>
+<footer>
+  <span>© 2024 Hoom Architects</span>
+  <span>Đà Nẵng, Việt Nam</span>
+  <span><a href="mailto:hello@hoom.vn" style="color:inherit;text-decoration:none;">hello@hoom.vn</a></span>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
 <script>
-// NAV
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>40));
-document.getElementById('mBtn').onclick=()=>document.getElementById('mNav').classList.add('open');
-document.getElementById('mCls').onclick=cMob;
-function cMob(){document.getElementById('mNav').classList.remove('open')}
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-// MASONRY
-// col:0=trái,1=phải | wf:% rộng | h:cao ảnh | xoff:% lệch ngang | yoff:px lệch dọc
-const CFG=[
-  {col:0, wf:.42, h:420, xoff:0,   yoff:0  },
-  {col:1, wf:.34, h:280, xoff:.06, yoff:140},
-  {col:1, wf:.26, h:360, xoff:.16, yoff:0  },
-  {col:0, wf:.30, h:340, xoff:.08, yoff:0  },
-  {col:1, wf:.42, h:400, xoff:0,   yoff:0  },
-  {col:0, wf:.46, h:460, xoff:0,   yoff:0  },
-  {col:1, wf:.30, h:320, xoff:.12, yoff:60 },
-  {col:0, wf:.34, h:380, xoff:.06, yoff:0  },
-];
-const GAP=56, CAP=58;
+  // Subtle scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
 
-function buildGrid(){
-  if(window.innerWidth<=768) return;
-  const grid=document.getElementById('pgrid');
-  const cards=Array.from(grid.querySelectorAll('.pc'));
-  const W=grid.offsetWidth;
-  if(!W) return;
-  const colH=[0,0];
-  cards.forEach((card,i)=>{
-    const c=CFG[i]||{col:i%2,wf:.4,h:400,xoff:0,yoff:0};
-    const imgW=Math.round(W*c.wf);
-    const colW=W/2;
-    const x=c.col===0?Math.round(colW*c.xoff):Math.round(colW)+Math.round(colW*c.xoff);
-    const y=colH[c.col]+c.yoff;
-    card.style.cssText=`position:absolute;left:${x}px;top:${y}px;width:${imgW}px`;
-    card.querySelector('.pc-inner').style.height=c.h+'px';
-    colH[c.col]=y+c.h+CAP+GAP;
+  document.querySelectorAll('.img-full, .img-inset, .img-pair, .body-text, .credits-grid, .related-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = 'opacity .55s ease, transform .55s ease';
+    observer.observe(el);
   });
-  grid.style.height=Math.max(colH[0],colH[1])+'px';
-}
-
-buildGrid();
-setTimeout(buildGrid,300);
-window.addEventListener('load',buildGrid);
-window.addEventListener('resize',buildGrid);
 </script>
 </body>
 </html>
